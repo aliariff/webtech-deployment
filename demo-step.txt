@@ -1,0 +1,8 @@
+# local machine
+docker build . -t node-app
+docker run node-app
+docker run -d node-app
+docker run -d -p 80:3000 node-app
+docker exec -it <name> bash
+
+# deploy
