@@ -15,3 +15,8 @@ sudo apt-get install ruby-full
 gem install capistrano
 cap install
 cap production deploy
+
+# docker compose
+docker-compose -f docker-compose.yml build
+docker-compose -f docker-compose.yml up -d
+docker-compose -f docker-compose.yml scale web=3
