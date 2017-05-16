@@ -1,6 +1,6 @@
 # remove all images & container
 docker rmi -f $(docker images -a -q)
-docker rm -f $(docker ps -a -f -q)
+docker rm -f $(docker ps -a -q)
 
 # local machine
 docker build . -t node-app
