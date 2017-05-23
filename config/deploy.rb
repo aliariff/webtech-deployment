@@ -5,8 +5,9 @@ set :application, 'node_app'
 set :user, 'webtech'
 set :repo_url, 'https://github.com/aliariff/webtech-deployment.git'
 set :deploy_to, "/home/#{fetch(:user)}"
-after 'deploy:finishing', 'deploy:restart_docker'
+# after 'deploy:finishing', 'deploy:restart_docker'
 # after 'deploy:finishing', 'deploy:restart_docker_compose'
+after 'deploy:finishing', 'deploy:assignment'
 
 namespace :deploy do
   desc 'Restart application'
@@ -33,6 +34,14 @@ namespace :deploy do
       execute "cd #{current_path} && docker-compose -f #{current_path}/docker-compose.yml build"
       execute "cd #{current_path} && docker-compose -f #{current_path}/docker-compose.yml up -d"
       execute "cd #{current_path} && docker-compose -f #{current_path}/docker-compose.yml scale web=3"
+    end
+  end
+
+  desc 'Assignment'
+  task :assignment do
+    on roles(:web_app) do |host|
+      execute "cd #{current_path}/assignment && docker-compose -f #{current_path}/assignment/docker-compose.yml build"
+      execute "cd #{current_path}/assignment && docker-compose -f #{current_path}/assignment/docker-compose.yml up -d"
     end
   end
 end
